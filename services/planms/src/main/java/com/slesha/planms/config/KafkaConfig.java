@@ -25,4 +25,18 @@ public class KafkaConfig {
    public KafkaTemplate<String, String> kafkaTemplate() {
       return new KafkaTemplate<>(producerFactory());
    }
+   @Bean
+   public new_kafkaprod<String, String> new_kafkaprod() {
+   // Create a Kafka producer object
+   Producer<String, String> producer = new KafkaProducer<>(props);
+
+      // Create a topic with the name "user-plans"
+      Properties adminProps = new Properties();
+      adminProps.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+      AdminClient adminClient = AdminClient.create(adminProps);
+      NewTopic newTopic = new NewTopic("user-plans", 1, (short) 1);
+      adminClient.createTopics(Collections.singleton(newTopic));
+
+      producer.send(record);
+         }
 }
